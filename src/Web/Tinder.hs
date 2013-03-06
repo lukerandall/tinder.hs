@@ -46,7 +46,7 @@ cfRequest creds method path mbody = sslConnection url $ \conn -> do
         http method path
         setAccept "application/json"
         setHeader "Content-type" "application/json"
-        setBasicAuth token "X"
+        setAuthorizationBasic t "X"
         setContentLength bodyLength
 
     putStrLn $ show q
