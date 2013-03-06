@@ -33,7 +33,7 @@ library
     base           == 4.5.*,
     blaze-builder,
     bytestring     >= 0.9,
-    io-streams,
+    io-streams     >= 1.0.0.1,
     HsOpenSSL,
     http-streams   >= 0.3.1,
     mtl,
