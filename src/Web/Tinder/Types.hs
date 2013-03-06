@@ -1,4 +1,4 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings, GeneralizedNewtypeDeriving #-}
 
 module Web.Tinder.Types
     ( CampfireEnv(..)
@@ -7,18 +7,22 @@ module Web.Tinder.Types
     , Room(..)
     , RoomId
     , Speak(..)
+    , subdomainToUrl
     ) where
 
-import           Control.Monad.Reader ()
 import           Data.Aeson as A
 import           Data.ByteString (ByteString)
 import qualified Data.ByteString as B
 import           Data.ByteString.UTF8 (fromString)
+import           Network.Http.Client (URL)
 
 data CampfireEnv = CampfireEnv
     { cfSubdomain :: ByteString
     , cfToken :: ByteString
     } deriving (Show)
+
+subdomainToUrl :: ByteString -> URL
+subdomainToUrl sub = B.concat ["https://", sub, ".campfirenow.com"]
 
 data Message = TextMessage ByteString
 

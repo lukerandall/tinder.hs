@@ -22,9 +22,6 @@ import qualified System.IO.Streams as Streams
 import Web.Tinder.Types
 import Web.Tinder.Util
 
-subdomainToUrl :: ByteString -> URL
-subdomainToUrl sub = B.concat ["https://", sub, ".campfirenow.com"]
-
 sslConnection :: URL -> (Connection -> IO a) -> IO a
 sslConnection url f = withOpenSSL $ withConnection (putStrLn ("Connecting to " ++ (show url)) >> establishConnection url) f
 
@@ -58,7 +55,7 @@ cfRequest creds method path mbody = sslConnection url $ \conn -> do
         x <- Streams.read i
         C.putStrLn $ fromMaybe "" x)
   where
-    token = cfToken creds
+    t = cfToken creds
     url = subdomainToUrl $ cfSubdomain creds
     body = fromMaybe "" mbody
     bodyLength = B.length body
